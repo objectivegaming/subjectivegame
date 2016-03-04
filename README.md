@@ -1,6 +1,4 @@
-/*
-Banners are forever
-*/
+ᕙ(˵ ಠ ਊ ಠ ˵)ᕗ  Lets do some coding ᕙ(˵ ಠ ਊ ಠ ˵)ᕗ
 
 # subjective game
 
