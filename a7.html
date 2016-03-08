@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<style>
+</style>
+<div>
+<canvas id="canvas">This is a canvas. This thing right here!</canvas>
+</div>
+
+<p>Use the left, right and up arrow keys to move.</p>
+<p class="info">I'm an info box!</p>
+
+<body> 
+
+<script>
+
+/* VERSATILE CHOICE-MAKING FUNCTION WITH TRAIT MECHANICS AND CANVAS VISUAL OUTPUT */
+// NOT BS
+
+
+/* Variable for a single choice under a single scenario
+ * reqs[]: requirements for appearance
+ * infl[]: traits that influence outcome
+ * choiceid: int value for choice id
+ * outid: int value for outcome id
+ * desc"": text description of choice
+ */
+class Scenario = {
+  constructor(id, choices, description) {
+    this.id = id;
+    this.description = description;
+    this.choices = choices;
+  }
+}
+
+class Choice = {
+  constructor(choiceid, outid, description, requirements, influences) {
+    this.requirements = requirements;
+    this.influences = influences;
+    this.choiceid = choiceid;
+    this.outid = outid;
+    this.description = description;
+  }
+}
+
+var sx = 10;
+var sy = 10;
+var cx = 100;
+var cy = 100;
+
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+
+var load = true;
+
+var scenarioList = [];
+//scenarioList.push(new Scenario(0,[0,1],"A test is needed. What will you choose?"));
+scenarioList.push(new Scenario(1,[[1,2,"Choose to do the test.",[strength>=50,gold>=100],[strength>=100]]],"Another test is needed. What will you choose?"));
+
+
+function loadScenario(id) {
+  // Check for requirements:
+  for (i=0;i<scenarioList[id].choices.requirements.length;i++) {
+    if (scenarioList[id].choices.requirements[i] == false) {
+      load = false;
+      break;
+    }
+  }
+  // If check passes, draw scenario desc:
+  if (load == true) {
+    drawScenario(id);
+    drawChoices(id);
+  }
+  
+}
+
+function drawScenario(id) {
+  ctx.font = "30px Arial";
+  ctx.fillText(scenarioList[id].description, sx, sy);
+}
+
+function drawChoices(id, cx, cy) {
+  ctx.font = "30px Arial";
+  for (i=0;i<scenarioList[id].choices.length;i++) {
+    ctx.fillText(scenarioList[id].choices[i].description, cx, cy);
+  }
+}
+
+loadScenario(0);
+
+</script>
+
+</body>
+</html>
