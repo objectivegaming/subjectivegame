@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<canvas id="canvas">This is a canvas. This thing right here!</canvas>
+
+<p id="one">I'm an info box!1</p>
+<p id="two">I'm an info box!2</p>
+<p id="three">I'm an info box!3</p>
+
+<button id="un" onclick="onInput(1)">Button one.</button>
+<button id="deux" onclick="onInput(2)">Button two.</button>
+<button id="trois" onclick="onInput(3)">Button three.</button>
+<br>
+<button onclick="invokeSituation(0)">Invoke0</button>
+
+<body> 
+
+<script>
+
+function onInput() {
+  var blah = [];
+}
+
+var info = document.getElementById("three");
+var choiceOne = document.getElementById("un");
+var situationList = [];
+
+situationList.push(new Situation([],"A situation occurs!",0));
+situationList[0].choices.push(new Choice(0,"A choice appears!",true))
+
+class Situation {
+  constructor(choices, description, type) {
+    this.choices = choices;
+    this.description = description;
+    this.type = type;
+  }
+}
+
+class Choice {
+  constructor(outcome, description, requirements) {
+    this.outcome = outcome;
+    this.description = description;
+    this.requirements = requirements;
+  }
+}
+
+function invokeSituation(i) {
+  info.innerHTML = situationList[i].description;
+  un.innerHTML = situationList[i].choices[0].description;
+}
+
+invokeSituation(0);
+
+
+</script>
+
+</body>
+</html>
