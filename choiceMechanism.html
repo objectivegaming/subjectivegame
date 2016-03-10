@@ -11,22 +11,41 @@
 <button id="deux" onclick="onInput(2)">Button two.</button>
 <button id="trois" onclick="onInput(3)">Button three.</button>
 <br>
+<button onclick="fu()">f you</button>
 <button onclick="invokeSituation(0)">Invoke0</button>
+
+
+
 
 <body> 
 
+
+
+
+
 <script>
 
-function onInput() {
-  var blah = [];
+function fu() {
+  alert("fuc youj");
 }
 
 var info = document.getElementById("three");
 var choiceOne = document.getElementById("un");
 var situationList = [];
 
+situationList.push({
+  choices: {
+    outcome: 0,
+    description: "A choice appears!",
+    requirements: true
+  },
+  description: "A situation occurs!"
+});
+
+
+/*
 situationList.push(new Situation([],"A situation occurs!",0));
-situationList[0].choices.push(new Choice(0,"A choice appears!",true))
+situationList[1].choices.push(new Choice(0,"A choice appears!",true));
 
 class Situation {
   constructor(choices, description, type) {
@@ -43,16 +62,20 @@ class Choice {
     this.requirements = requirements;
   }
 }
+*/
+
 
 function invokeSituation(i) {
+  info.innerHTML = "loading......";
   info.innerHTML = situationList[i].description;
-  un.innerHTML = situationList[i].choices[0].description;
+  choiceOne.innerHTML = situationList[i].choices.description;
 }
 
 invokeSituation(0);
 
-
 </script>
+
+
 
 </body>
 </html>
