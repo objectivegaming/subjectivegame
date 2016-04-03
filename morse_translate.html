@@ -1,0 +1,85 @@
+<p> this is the input file </p>
+<input type='file' accept='.txt*' onchange='in_chng(event)'><br> 
+
+<button onclick="morse()">translate chosen file to morse code</button>
+<script>
+var in_chng = function(event) {
+	var input = event.target;
+	var reader = new FileReader();
+	reader.onload = function(){	
+		raw_in = this.result;
+		// alert(raw_in);
+		al();
+	};
+	reader.readAsText(input.files[0]);
+};
+function al() {
+	raw_in.trim();
+	raw_str = raw_in;
+	raw_split = raw_in.split(" ");
+}
+function morse() {
+	ou = "";
+	//morse dictionary taken from http://morsecode.scphillips.com/morse2.html
+	morse_dict = {
+		"A": ".-",
+		"B": "-...",
+		"C": "-.-.",
+		"D": "-..",
+		"E": ".",
+		"F": "..-.",
+		"G": "--.",
+		"H": "....",
+		"I": "..",
+		"J": ".---",
+		"K": "-.-",
+		"L": ".-..",
+		"M": "--",
+		"N": "-.",
+		"O": "---",
+		"P": ".--.",
+		"Q": "--.-",
+		"R": ".-.",
+		"S": "...",
+		"T": "-",
+		"U": "..-",
+		"V": "...-",
+		"W": ".--",
+		"X": "-..-",
+		"Y": "-.--",
+		"Z": "--..",
+		"0": "-----",
+		"1": ".----",
+		"2": "..---",
+		"3": "...--",
+		"4": "....-",
+		"5": ".....",
+		"6": "-....",
+		"7": "--...",
+		"8": "---..",
+		"9": "----.",
+		"?": "..--..",
+		".": ".-.-.-"
+	};
+
+	for (i = 0; i < raw_in.length; i++){	
+		console.log(raw_in[i].toLowerCase());
+		if (raw_in[i] == " ") {
+			ou += " ";
+		} else{
+			if (morse_dict[raw_in[i]] === undefined){//I use triple equal sign for strict comparison because it wont work otherwise.
+				if (morse_dict[raw_in[i].toUpperCase()] !== undefined) {
+					ou += morse_dict[raw_in[i].toUpperCase()];
+				} else{
+					alert("Unknown character - Please use english alphabet and numbers, with no accents");//if the user puts in something that is not recognized by our morse code generator.
+					break
+				};
+			}else{
+				ou += morse_dict[raw_in[i]];
+			}
+		};
+		console.log("translated message to morse code: " + ou);//put this wherever you want zhuoen.
+	}
+}
+morse();
+</script>
