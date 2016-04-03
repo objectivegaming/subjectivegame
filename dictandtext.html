@@ -1,0 +1,73 @@
+<p> this is the input file - only accepts .dixt files </p>
+<input type='file' accept='.txt*' onchange='in_chng(event)'><br> 
+<p> this is the dictionary file - Only accepts .dixt files</p>
+<input type='file' accept='.dixt*' onchange='in_dict(event)'><br> 
+<br>
+<button onclick="tran()">translate it</button>
+<script>
+	var raw_in = "";
+ 
+	var f_dict = new Array(); 
+
+	var in_chng = function(event) {
+		var input = event.target;
+		var reader = new FileReader();
+		reader.onload = function(){	
+			raw_in = this.result;
+			// alert(raw_in);
+			al();
+		};
+		reader.readAsText(input.files[0]);
+	};
+	var in_dict = function(event) {
+		var input = event.target;
+		var reader = new FileReader();
+		reader.onload = function(){	
+			raw_dict = this.result;
+			// alert(raw_dict);
+			use_dict();
+		};
+		reader.readAsText(input.files[0]);
+
+	};
+	function capitalizeFirstLetter(string) {
+    	return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+	function al() {
+		raw_in.trim();
+		raw_split = raw_in.split(" ");
+	}
+
+	function use_dict() {
+		// alert(raw_dict);
+		// alert("using DICTIOUNARTY");
+		var line_dict = raw_dict.split('\n');
+		// alert(line_dict);
+		for (i = 0; i < line_dict.length; i++){
+			var key = line_dict[i].split("=")[0];
+			var pir = line_dict[i].split("=")[1];
+			//console.log(key + " " + pir);
+			f_dict[key] = pir;
+			// console.log(f_dict[key])//I  DID IT
+			
+		}
+	}
+	function tran() {
+		// alert("start translation");
+		ou = "";
+		for (i = 0; i < raw_split.length; i++){
+			//console.log(raw_split[i]);
+
+			if (raw_split[i] in f_dict){
+
+				ou += (" " + f_dict[raw_split[i]]);
+			} else if (capitalizeFirstLetter(raw_split[i]) in f_dict){
+				ou += (" " + f_dict[capitalizeFirstLetter(raw_split[i])].toLowerCase())
+			}else{
+				ou += (" " + raw_split[i]);
+			}
+			
+		}
+		console.log(ou); // this is the output 
+	}
+</script>
